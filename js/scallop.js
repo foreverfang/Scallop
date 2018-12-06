@@ -319,7 +319,7 @@ window.onload = function() {
     
   new Vue({
     el:"#app",
-    temlplate:`
+    template:`
       <div>
         <h1 :title="myText">hello world</h1>
       </div>
