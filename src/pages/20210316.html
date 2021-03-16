@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20210316</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // // 数组去重
+        // let arr = [12, 23, 12, 15, 25, 23, 25, 14, 16, 24, 26];
+        // // let arr1 = [...new Set(arr)];  
+        // // let arr2 = Array.from(new Set(arr));
+        // // console.log(arr1) // [12, 23, 15, 25, 14, 16, 24, 26]
+        // // 1.拿出当前项和后面的内容进行比较
+        // // const res = []
+        // // for (let i = 0; i < arr.length; i++) {
+        // //     const item = arr[i],
+        // //         args = arr.slice(i + 1);
+        // //     if (args.indexOf(item) > -1) {
+        // //         // // 包含：可以把当前项干掉
+        // //         // // splice删除
+        // //         // // 1.原来的数组改变，如果i继续++，则会产生数组塌陷
+        // //         // // 2. 性能不好：当前项一旦删除，后面项索引都要变
+        // //         // arr.splice(i, 1);
+        // //         // i--
+
+        // //         // 赋值为null
+        // //         // arr[i] = null;
+
+        // //         // 用最后一项替换
+        // //         arr[i] = arr[arr.length - 1];
+        // //         arr.length--;
+        // //         i--;
+        // //     } else {
+        // //         // res.push(item)
+        // //     }
+        // // }
+        // // // arr = arr.filter(item => item !== null);
+        // // console.log(arr)
+        // // // console.log(res)
+
+        // arr.sort((a, b) => a - b);
+        // arr = arr.join('@') + '@';
+        // const reg = /(\d+@)\1*/g; // 匹配数字+@符号，‘\1’表示捕获一次
+        // const res = [];
+        // arr.replace(reg, (val, group1) => {
+        //     // console.log(val, group1)    // 12@12@ 12@
+        //     //                             // 14@ 14@
+        //     //                             // 15@ 15@
+        //     //                             // 16@ 16@
+        //     //                             // 23@23@ 23@
+        //     //                             // 24@ 24@
+        //     //                             // 25@25@ 25@
+        //     //                             // 26@ 26@
+
+        //     res.push(Number(group1.slice(0, group1.length - 1))) // '12@'.slice(0, 2) 截取数字放入新数组中
+        // })
+        // console.log(res)
+
+
+        // 数组排序
+        let arr = [12, 8, 24, 16, 1];
+        // 冒泡排序 
+        // 跟后一个两两比较，再交换位置。每一轮比较后当前数组最大值，放到末尾
+        // 规律：一轮轮的比较，每一轮都从第一项开始，拿当前项A和后一项B进行比较，如果A>B，则让两者交换位置。
+        // 最大轮数：arr.length - 1；
+        // 每轮次数：最多arr.length - 1，不和自己比，还要把之前比较过多少论去掉。 （arr.length - 1 - i）
+
+        // function bubble(arr) {
+        //     // 外层循环轮数
+        //     for (let i = 0; i < arr.length - 1; i++) {
+        //         // 内层循环比较次数
+        //         for (let j = 0; j < arr.length - 1 - i; j++) {
+        //             // 当前项大于后一项
+        //             if (arr[j] > arr[j + 1]) {
+        //                 const temp = arr[j];
+        //                 arr[j] = arr[j + 1];
+        //                 arr[j + 1] = temp;
+        //             }
+        //         }
+        //     }
+        //     return arr;
+        // }
+        // arr = bubble(arr);
+        // console.log(arr);
+
+        // 插入排序
+        // function insert(arr) {
+        //     // 1.准备一个新数组，用来存储抓到手里的牌，开始先抓一张牌进来
+        //     let handle = [];
+        //     handle.push(arr[0]);
+        //     for (let i = 1; i < arr.length; i++) {
+        //         const A = arr[i];
+        //         for (let j = handle.length - 1; j >= 0; j--) {
+        //             const B = handle[j];
+        //             // 取的牌比手里的牌大，就放到这张牌后面
+        //             if (A > B) {
+        //                 handle.splice(j + 1, 0, A);
+        //                 break;
+        //             }
+        //             // 已经比到第一项了，我们把新牌放到手中最前面即可
+        //             if (j === 0) {
+        //                 handle.unshift(A);
+        //             }
+        //         }
+        //     }
+        //     return handle;
+        // }
+
+        // arr = insert(arr);
+        // console.log(arr)
+
+        // 快速排序
+        function quick(arr) {
+            // 4.结束递归（当arr中小于等于一项时，不处理）
+            if (arr.length <= 1) {
+                return arr;
+            }
+            // 1.找到数组的中间项，在原有的数组中把它移除
+            let middleIndex = Math.floor(arr.length / 2);
+            let middleValue = arr.splice(middleIndex, 1)[0];
+            // 2.准备左右两个数组，循环剩下数组中的每一项，比当前项小的放到左边数组中，反之放到右边数组中
+            let arrLeft = [],
+                arrRight = [];
+            for (let i = 0; i < arr.length; i++) {
+                let item = arr[i];
+                item < middleValue ? arrLeft.push(item) : arrRight.push(item);
+            }
+            // 3.递归方式让左右两边的数组持续这样处理，一直到左右两边都排好序为止（最后让左边+中间+右边 拼接成最后的结果）
+            return quick(arrLeft).concat(middleValue, quick(arrRight))
+        }
+        arr = quick(arr);
+        console.log(arr)
+    </script>
+</body>
+
+</html>

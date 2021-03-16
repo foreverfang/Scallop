@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>test</title>
+    <style>
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .box {
+            box-sizing: border-box;
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid lightblue;
+            background: lightcyan;
+        }
+
+        body {
+            /* position: relative; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 方案4 table-cell 父元素必须有固定款高*/
+        /* .main {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            width: 500px;
+            height: 500px;
+            background: lightcoral;
+        }
+
+        .box {
+            display: inline-block;
+        } */
+    </style>
+</head>
+
+<body>
+    <!-- <div class="main"> -->
+    <div class="box">
+        hello fang
+    </div>
+    <!-- </div> -->
+    <script type="text/javascript">
+        // const HTML = document.documentElement,
+        //     winW = HTML.clientWidth,
+        //     winH = HTML.clientHeight,
+        //     boxW = box.offsetWidth,
+        //     boxH = box.offsetHeight;
+        // console.log("winW", winW)
+        // console.log("winH", winH)
+        // console.log("boxW", boxW)
+        // console.log("boxH", boxH)
+
+        // box.style.position = "absolute";
+        // box.style.left = (winW - boxW) / 2 + "px";
+        // box.style.top = (winH - boxH) / 2 + "px";
+    </script>
+</body>
+
+</html>
