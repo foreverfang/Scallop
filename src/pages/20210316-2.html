@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组1</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 数组扁平化
+        let arr = [
+            [1, 2, 3],
+            [3, 2, 3, 4],
+            [6, 7, 8, 9, [11, 21, [23, 14, [17]]]],
+            10
+        ];
+
+        // ES6 方法flat
+        // arr = arr.flat(Infinity); 
+
+        // 转字符串
+        // arr = arr.toString().split(',').map(item=>parseFloat(item))
+        // '|'表示或者
+        // arr = JSON.stringify(arr).replace(/(\[|\])/g, '').split(',').map(item=>parseFloat(item))
+
+        // 循环验证是否为数组
+        // while (arr.some(item => Array.isArray(item))) {
+        //     arr = [].concat(...arr);
+        // }
+
+        // 递归
+        (function () {
+            function myFlat() {
+                const result = [],
+                    _this = this;
+                // 循环ARR中的每一项，把不是数组的存储到新数组中
+                let fn = (arr) => {
+                    for (let i = 0; i < arr.length; i++) {
+                        const item = arr[i];
+                        if (Array.isArray(item)) {
+                            fn(item);
+                            continue;
+                        }
+                        result.push(item);
+                    }
+                }
+                fn(_this);
+                return result;
+            }
+            Array.prototype.myFlat = myFlat;
+        })();
+        arr = arr.myFlat();
+        console.log(arr)
+    </script>
+</body>
+
+</html>
