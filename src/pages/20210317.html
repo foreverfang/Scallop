@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>斐波拉契数列</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // // 斐波拉契数列 [1,1,2,3,5,8,13,21,34,55...]
+        // // 推荐
+        // function fibonacci(n) {
+        //     if (n <= 1) return 1;
+        //     let arr = [1, 1];
+        //     // 即将创建多少个
+        //     let i = n + 1 - 2;
+        //     // 获取最后两项，相加作为数组新的最后一项
+        //     while (i > 0) {
+        //         let a = arr[arr.length - 1],
+        //             b = arr[arr.length - 2];
+        //         arr.push(a + b);
+        //         i--;
+        //     }
+        //     return arr[arr.length - 1]
+        // }
+        // console.log(fibonacci(0))  // 1
+        // console.log(fibonacci(1))  // 1
+        // console.log(fibonacci(2))  // 2
+        // console.log(fibonacci(3))  // 3
+        // console.log(fibonacci(5))  // 8
+        // console.log(fibonacci(7))  // 21
+
+        // function fibonacci(n) {
+        //     function fn(n, curr = 1, next = 1) {
+        //         if (n === 0) {
+        //             return curr;
+        //         } else {
+        //             return fn(n - 1, next, curr + next)
+        //         }
+        //     }
+        //     return fn(n);
+        // }
+        // console.log(fibonacci(5)) // 8
+
+        /**
+         * 算法题
+         * 输入一个正数N，输出所有和为N的连续正数序列
+         * 例如：输入15
+         * 输出：[[1,2,3,4,5],[4,5,6],[7.8]]
+         */
+        // 构造连续正数数列数组
+        function createArr(n, len) {
+            let arr = new Array(len).fill(null),
+                temp = [];
+            arr[0] = n;
+            for (let i = n + 1; i < len; i++) {
+                arr.push(i)
+            }
+            arr = arr.map((item, index) => {
+                if (item === null) {
+                    item = temp[index - 1] + 1; // 在上一项基础上加1
+                }
+                temp.push(item); // 当前项的值暂存，作为下一项的基础
+                return item;
+            });
+            return arr;
+        }
+
+        function fn(count) {
+            const result = [];
+            // 思路：1.求出中间值：count/2 向上取整(Math.ceil())，再往后和肯定大于目标值了，所以只取中间值以下的
+            const middle = Math.ceil(count / 2);
+            // 从1开始累加
+            for (let i = 1; i < middle; i++) {
+                // 控制累加的次数
+                for (let j = 2;; j++) {
+                    // 求出累加多次的和(求和公式)
+                    const total = (i + (i + j - 1)) * (j / 2);
+                    if (total > count) {
+                        break;
+                    } else if (total === count) {
+                        result.push(createArr(i, j))
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+    </script>
+</body>
+
+</html>
